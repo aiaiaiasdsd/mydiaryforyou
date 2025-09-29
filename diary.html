@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Diary</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #f5efef;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+      position: relative;
+    }
+
+    /* 이미지 */
+    img {
+      width: 700px;
+      height: auto;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.3s ease, opacity 0.4s ease;
+      position: absolute;
+    }
+    img:hover {
+      transform: scale(1.05);
+    }
+    img.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* 카드 */
+    .card {
+      display: none;
+      background-color: #ffffff;
+      width: 90%;
+      max-width: 600px;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      line-height: 1.8;
+      color: #333;
+      font-size: 15px;
+      animation: fadeIn 0.6s ease forwards;
+      position: absolute;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card p {
+      margin-bottom: 16px;
+      white-space: pre-line;
+    }
+
+    /* 닫기 버튼 */
+    .close-btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 8px;
+      background-color: #f5efef;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+    .close-btn:hover {
+      background-color: #e1dada;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 처음에 보이는 이미지 -->
+  <img id="photo" src="diary01.png" alt="다이어리 이미지">
+
+  <!-- 마지막에 뜨는 카드 -->
+  <div class="card" id="textCard">
+    <p>
+To. 애기
+</p>여섯 시 반 전까지 끝내려고 내 퇴근도 미뤄 둔 채 페이지 제작에 열중했어. 사실 페이지라고 해 봤자 별거 없긴 하지만. 완벽하게 마음에 안 드는 것 같기도 하지만. 다음에는 더 예쁘게 만들어 볼게.
+    </p>애기가 손편지를 좋아한다고 했잖아. 나도 손편지 쓰는 걸 정말 좋아하는데, 그래서 사실 아이패드로 쓸까 고민도 했지만 손편지는 직접 만나서 전해 주고 싶다는 욕심이 커서 결국...... 이렇게 됐다.
+    사실 좋아하면 닮는 거 보여 주려고 애기 따라 한 거야. 알지?
+    <p>가끔은 있잖아.
+    <p>나보다 애기가 나를 더 잘 안다는 기분이 들어. 처음에는 우리가 너무 닮은 거야. 이게 인연이구나 했지.
+        내가 좋아하는 것들, 내 취향을 공유했을 때 공감해 주고 같이 좋아해 줄 사람이 세상에 몇이나 있을까. 뭐...... 취향 비슷한 것 정도는 있을 수 있다고 치자. 
+        </p>그러면 같이 노래를 듣고 그 노래에 대한
+        자신의 생각을 풀어쓸 줄 아는 능력과 영화 관람 뒤에 나누는 리뷰에 눈을 반짝이는 취미를 가진 사람만 남도록 탈탈 털면? 이건 그냥 잭팟이라고밖에 말 못 하지. 우리는 그냥 운명 맞대도.
+이 글 쓰다가 나 지금 살짝 북받쳤는데 편지 쓰는 사람이 찔찔거리면 곤란하잖아. 원래 소중한 건 떠올리기만 해도 울컥한대. 나 요즘 애기랑 대화하다가 울컥할 뻔한 적이 한두 번이 아냐. 나 진짜 심각해. 책임져.
+
+    </p>결국 내가 하고 싶은 말은
+    </p>좋아하는 마음은 말보다 오래 남잖아.
+    그러니까 이 편지의 마지막 문장은, 애기가 알아줬으면 하는 마음이야.
+    사랑 사전(Love Directory) 정독하며 홧홧해지는 게 눈시울보다는 볼따구니지만 A to Z 채우려면 아직 한참이니까.
+    </p>그러니까,
+    우리는 이제 일생을 悤悤거리자.
+    </p>사랑을 담아,
+    <br>언니 씀.
+    </p> 추신.
+    <br>이 글을 쓴 이유.
+    <br>(1) 사랑하면 닮는 거 보여 주려고.
+    <br>(2) 너랑 닮아 가는 내가 좋아서.
+     </p>
+
+
+
+
+
+
+
+    <button class="close-btn" id="closeBtn">닫기</button>
+  </div>
+
+  <script>
+    const img = document.getElementById("photo");
+    const card = document.getElementById("textCard");
+    const closeBtn = document.getElementById("closeBtn");
+
+    const images = ["diary01.png", "diary02.png", "diary03.png"];
+    let index = 0;
+
+    img.addEventListener("click", () => {
+      // diary01 -> diary02 -> diary03 -> 카드 순서대로
+      if (index < images.length - 1) {
+        index++;
+        img.src = images[index];
+      } else if (index === images.length - 1) {
+        // 마지막 diary03 클릭 시 카드 등장
+        img.classList.add("hidden");
+        card.style.display = "block";
+      }
+    });
+
+    // 닫기 버튼 클릭 시 리셋
+    closeBtn.addEventListener("click", () => {
+      card.style.display = "none";
+      img.classList.remove("hidden");
+      img.src = images[0]; // diary01.png로 복귀
+      index = 0; // 상태 리셋
+    });
+  </script>
+
+</body>
+</html>
